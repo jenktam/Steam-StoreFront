@@ -1,6 +1,6 @@
-# SteamRendition
+# Steam Storefront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.2.
+This application was made using Angular 2 and Steam's web API.
 
 ## Development server
 

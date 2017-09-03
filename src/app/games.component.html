@@ -1,0 +1,28 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h2>Top Selling Games</h2>
+  <ul class="games">
+    <li *ngFor="let game of games"
+      [class.selected]="game === selectedGame"
+      (click)="onSelect(game)"
+    >
+      <span class="badge">ID: {{game.id}}</span>   Name: {{game.name}}
+
+      <button class="delete" (click)="delete(game); $event.stopPropagation()">x</button>
+    </li>
+  </ul>
+
+  <div *ngIf="selectedGame">
+    <h2>
+      {{selectedGame.name | uppercase }} is my favorite game!
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+  </div>
+
+  <div>
+    <label>Game name:</label><input #gameName />
+    <button (click)="add(gameName.value); gameName.value=''">
+      Add
+    </button>
+  </div>
+</div>

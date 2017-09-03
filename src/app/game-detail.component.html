@@ -1,0 +1,18 @@
+<div *ngIf="game">
+  <h2>{{game.name}} details!</h2>
+  <div><label>id: </label>{{game.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="game.name" placeholder="name"/>
+    <p>Price: {{game.final_price}}</p>
+    <p>Windows Available: {{game.windows_available}}</p>
+    <p>Mac Available: {{game.mac_available}}</p>
+    <p>Linux Available: {{game.linux_available}}</p>
+  </div>
+
+  <button (click)="save()">Save</button>
+  <button (click)="goBack()">Back</button>
+</div>
+
+
+

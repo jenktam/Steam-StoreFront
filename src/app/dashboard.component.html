@@ -1,0 +1,10 @@
+<h1>Dashboard</h1>
+<h2>Top Selling Games Dashboard</h2>
+<div class="grid grid-pad">
+    <a *ngFor="let game of games" class="col-1-4" [routerLink]="['/detail', game.id]">
+      <div class="module game">
+        <h4>{{game.name}}</h4>
+      </div>
+    </a>
+  </div>
+<game-search></game-search>
