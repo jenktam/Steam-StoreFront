@@ -11,8 +11,6 @@ import { GameService } from './services/game.service'
 export class DashboardComponent implements OnInit {
   games: Game[] = [];
 
-  // games: any = [];
-
   constructor(private gameService: GameService){}
 
   // ngOnInit() {
@@ -24,11 +22,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     var gamesTemp = this.gameService.getGames();
-    console.log("gamesTemp", gamesTemp)
+    // console.log("gamesTemp", gamesTemp)
     this.gameService.getGames()
     .subscribe( games => {
-      console.log("dashboard games***", games)
-      console.log("this.games***", this.games)
+      // console.log("dashboard games***", games)
       this.games = games;
     })
   }

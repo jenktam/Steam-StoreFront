@@ -6,9 +6,11 @@
       [class.selected]="game === selectedGame"
       (click)="onSelect(game)"
     >
-      <span class="badge">ID: {{game.id}}</span>   Name: {{game.name}}
-
-      <button class="delete" (click)="delete(game); $event.stopPropagation()">x</button>
+      <div class="badge">
+        <span>ID: {{game.id}}</span>   Name: {{game.name}}
+        <p>Link to Game: {{game.url}}</p>
+      </div>
+      <!-- <button class="delete" (click)="delete(game); $event.stopPropagation()">x</button> -->
     </li>
   </ul>
 
@@ -21,8 +23,8 @@
 
   <div>
     <label>Game name:</label><input #gameName />
-    <button (click)="add(gameName.value); gameName.value=''">
+    <!-- <button (click)="add(gameName.value); gameName.value=''">
       Add
-    </button>
+    </button> -->
   </div>
 </div>

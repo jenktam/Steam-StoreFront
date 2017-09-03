@@ -35,7 +35,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 var routes = [
-    { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: '/', pathMatch: 'full' },
     { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_2__dashboard_component__["a" /* DashboardComponent */] },
     { path: 'detail/:id', component: __WEBPACK_IMPORTED_MODULE_4__game_detail_component__["a" /* GameDetailComponent */] },
     { path: 'games', component: __WEBPACK_IMPORTED_MODULE_3__games_component__["a" /* GamesComponent */] },
@@ -222,7 +222,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var DashboardComponent = (function () {
-    // games: any = [];
     function DashboardComponent(gameService) {
         this.gameService = gameService;
         this.games = [];
@@ -236,11 +235,10 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
         var gamesTemp = this.gameService.getGames();
-        console.log("gamesTemp", gamesTemp);
+        // console.log("gamesTemp", gamesTemp)
         this.gameService.getGames()
             .subscribe(function (games) {
-            console.log("dashboard games***", games);
-            console.log("this.games***", _this.games);
+            // console.log("dashboard games***", games)
             _this.games = games;
         });
     };
@@ -281,7 +279,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"game\">\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Price: {{game.final_price}}</p>\n    <p>Windows Available: {{game.windows_available}}</p>\n    <p>Mac Available: {{game.mac_available}}</p>\n    <p>Linux Available: {{game.linux_available}}</p>\n  </div>\n\n  <button (click)=\"save()\">Save</button>\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
+module.exports = "<div *ngIf=\"game\">\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Url: {{game.url}}</p>\n\n  </div>\n\n  <!-- <button (click)=\"save()\">Save</button> -->\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
 
 /***/ }),
 
@@ -320,15 +318,14 @@ var GameDetailComponent = (function () {
         var _this = this;
         this.route.paramMap
             .switchMap(function (params) { return _this.gameService.getGame(+params.get('id')); })
-            .subscribe(function (game) { return _this.game = game; });
+            .subscribe(function (game) {
+            console.log("game-detail game", game);
+            console.log("game-detail this.game", _this.game);
+            _this.game = game;
+        });
     };
     GameDetailComponent.prototype.goBack = function () {
         this.location.back();
-    };
-    GameDetailComponent.prototype.save = function () {
-        var _this = this;
-        this.gameService.update(this.game)
-            .then(function () { return _this.goBack(); });
     };
     return GameDetailComponent;
 }());
@@ -462,7 +459,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".selected {\n  background-color: #CFD8DC !important;\n  color: white;\n}\n.games {\n  margin: 0 0 2em 0;\n  list-style-type: none;\n  padding: 0;\n  width: 35em;\n  text-align: left;\n}\n.games li {\n  cursor: pointer;\n  position: relative;\n  left: 0;\n  background-color: #EEE;\n  margin: .5em;\n  padding: .3em 0;\n  height: 1.6em;\n  border-radius: 4px;\n}\n.games li.selected:hover {\n  background-color: #BBD8DC !important;\n  color: white;\n}\n.games li:hover {\n  color: #607D8B;\n  background-color: #DDD;\n  left: .1em;\n}\n.games .text {\n  position: relative;\n  top: -3px;\n}\n.games .badge {\n  display: inline-block;\n  font-size: small;\n  color: white;\n  padding: 0.8em 0.7em 0 0.7em;\n  background-color: #607D8B;\n  line-height: 1em;\n  position: relative;\n  left: -1px;\n  top: -4px;\n  height: 1.8em;\n  margin-right: .8em;\n  border-radius: 4px 0 0 4px;\n}\n\nbutton.delete {\n  float:right;\n  margin-top: 2px;\n  margin-right: .8em;\n  background-color: gray !important;\n  color:white;\n}\n", ""]);
+exports.push([module.i, ".selected {\n  background-color: #CFD8DC !important;\n  color: white;\n}\n.games {\n  margin: 0 0 2em 0;\n  list-style-type: none;\n  padding: 0;\n  width: 35em;\n  text-align: left;\n}\n.games li {\n  cursor: pointer;\n  position: relative;\n  left: 0;\n  background-color: #EEE;\n  margin: .5em;\n  padding: .3em 0;\n  height: 4.5em;\n  border-radius: 4px;\n}\n.games li.selected:hover {\n  background-color: #BBD8DC !important;\n  color: white;\n}\n.games li:hover {\n  color: #607D8B;\n  background-color: #DDD;\n  left: .1em;\n}\n.games .text {\n  position: relative;\n  top: -3px;\n}\n.games .badge {\n  display: inline-block;\n  font-size: small;\n  color: white;\n  padding: 0.8em 0.7em 0 0.7em;\n  background-color: #607D8B;\n  line-height: 1em;\n  position: relative;\n  left: -1px;\n  top: -4px;\n  height: 1.8em;\n  margin-right: .8em;\n  border-radius: 4px 0 0 4px;\n}\n\nbutton.delete {\n  float: right;\n  margin-top: -62px;\n  margin-right: 1.8em;\n  background-color: gray !important;\n  color: white;\n  z-index: 4;\n}\n", ""]);
 
 // exports
 
@@ -475,7 +472,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/games.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h2>Top Selling Games</h2>\n  <ul class=\"games\">\n    <li *ngFor=\"let game of games\"\n      [class.selected]=\"game === selectedGame\"\n      (click)=\"onSelect(game)\"\n    >\n      <span class=\"badge\">ID: {{game.id}}</span>   Name: {{game.name}}\n\n      <button class=\"delete\" (click)=\"delete(game); $event.stopPropagation()\">x</button>\n    </li>\n  </ul>\n\n  <div *ngIf=\"selectedGame\">\n    <h2>\n      {{selectedGame.name | uppercase }} is my favorite game!\n    </h2>\n    <button (click)=\"gotoDetail()\">View Details</button>\n  </div>\n\n  <div>\n    <label>Game name:</label><input #gameName />\n    <button (click)=\"add(gameName.value); gameName.value=''\">\n      Add\n    </button>\n  </div>\n</div>\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h2>Top Selling Games</h2>\n  <ul class=\"games\">\n    <li *ngFor=\"let game of games\"\n      [class.selected]=\"game === selectedGame\"\n      (click)=\"onSelect(game)\"\n    >\n      <div class=\"badge\">\n        <span>ID: {{game.id}}</span>   Name: {{game.name}}\n        <p>Link to Game: {{game.url}}</p>\n      </div>\n      <!-- <button class=\"delete\" (click)=\"delete(game); $event.stopPropagation()\">x</button> -->\n    </li>\n  </ul>\n\n  <div *ngIf=\"selectedGame\">\n    <h2>\n      {{selectedGame.name | uppercase }} is my favorite game!\n    </h2>\n    <button (click)=\"gotoDetail()\">View Details</button>\n  </div>\n\n  <div>\n    <label>Game name:</label><input #gameName />\n    <!-- <button (click)=\"add(gameName.value); gameName.value=''\">\n      Add\n    </button> -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -503,7 +500,6 @@ var GamesComponent = (function () {
     function GamesComponent(gameService, router) {
         this.gameService = gameService;
         this.router = router;
-        this.city = 'Seattle';
     }
     // Methods
     // old way
@@ -514,6 +510,8 @@ var GamesComponent = (function () {
     GamesComponent.prototype.getGames = function () {
         var _this = this;
         this.gameService.getGames().subscribe(function (games) {
+            console.log("gameComp games***", games);
+            console.log("gameComp this.games***", _this.games);
             _this.games = games;
         });
     };
@@ -523,31 +521,27 @@ var GamesComponent = (function () {
     GamesComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedGame.id]);
     };
-    GamesComponent.prototype.add = function (name) {
-        var _this = this;
-        name = name.trim();
-        if (!name)
-            return;
-        this.gameService
-            .create(name)
-            .then(function (game) {
-            _this.games.push(game);
-            _this.selectedGame = null;
-        });
-    };
+    // add(name: string): void {
+    //   name = name.trim();
+    //   if(!name) return;
+    //   this.gameService
+    //   .create(name)
+    //   .then( game => {
+    //     this.games.push(game)
+    //     this.selectedGame = null;
+    //   })
+    // }
     //game deleted here over game.service.ts because component is still responsible for updating the display. Thus, it comp removes the deleted game from the array and resets the selectedGame if necessary
-    GamesComponent.prototype.delete = function (game) {
-        var _this = this;
-        this.gameService
-            .delete(game.id)
-            .then(function () {
-            _this.games = _this.games.filter(function (singleGame) { return singleGame !== game; });
-            if (_this.selectedGame === game)
-                _this.selectedGame = null;
-        });
-    };
+    // delete(game: Game): void {
+    //   this.gameService
+    //   .delete(game.id)
+    //   .then( () => {
+    //     this.games = this.games.filter( singleGame => singleGame !== game)
+    //     if(this.selectedGame === game ) this.selectedGame = null
+    //   })
+    // }
     GamesComponent.prototype.ngOnInit = function () {
-        this.getGames;
+        this.getGames();
     };
     return GamesComponent;
 }());
@@ -562,18 +556,6 @@ GamesComponent = __decorate([
 ], GamesComponent);
 
 var _a, _b;
-/*
-Working apis:
-to storefront:
-http://store.steampowered.com/api/featured/
-
-by app id: for binding of isaac
-http://store.steampowered.com/api/appdetails/?appids=250900
-
-featured categories
-may be best and have the most info
-http://store.steampowered.com/api/featuredcategories/
-*/
 //# sourceMappingURL=games.component.js.map
 
 /***/ }),
@@ -629,8 +611,10 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("../../../../rxjs/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -644,27 +628,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var GameService = (function () {
     function GameService(http) {
         this.http = http;
         this.gamesUrl = 'api/games'; //url to web api**
-        this.headers = new __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Headers */]();
+        this.headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Headers */]();
     }
-    //must anticipate HTTP failures, so always add error handling
     GameService.prototype.handleError = function (error) {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        var errMsg = (error.message) ? error.message :
+            error.status ? error.status + " - " + error.statusText : 'Server error';
+        console.error(errMsg); // log to console instead
+        return __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"].throw(errMsg);
     };
+    GameService.prototype.extractData = function (res) {
+        var body = res.json();
+        console.log("body in game service", body);
+        return body || [];
+    };
+    // originally didn't work because needed to send both handleError and getGames as either a Promise or an Observable. Since handleError was still written as a Promise, there was an inconsistency. If it is a promise, need to show a promise in other files where the link is called
     GameService.prototype.getGames = function () {
         return this.http
             .get('/api/games')
-            .map(function (res) {
-            // console.log("res from game.service!****", res);
-            console.log("res.json() from game.service!****", JSON.stringify(res.json(), null, 2));
-            res.json();
-        })
+            .map(this.extractData)
             .catch(this.handleError);
     };
+    // getGames(): Observable<Game[]> {
+    //   return this.http
+    //   .get('/api/games')
+    //   .map( res => {
+    //     console.log("res from game.service!****", res);
+    //     console.log("res.json() from game.service!****", JSON.stringify(res.json(), null, 2));
+    //     res.json()})
+    //   .catch(this.handleError)
+    // }
     // getGames() {
     //   return this.http
     //   .get('/api/games')
@@ -683,38 +682,17 @@ var GameService = (function () {
         var url = this.gamesUrl + "/" + id;
         return this.http
             .get(url)
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
-    };
-    GameService.prototype.update = function (game) {
-        var url = this.gamesUrl + "/" + game.id;
-        return this.http
-            .put(url, JSON.stringify(game), { headers: this.headers })
-            .toPromise()
-            .then(function () { return game; })
-            .catch(this.handleError);
-    };
-    GameService.prototype.create = function (name) {
-        return this.http
-            .post(this.gamesUrl, JSON.stringify({ name: name }), { headers: this.headers })
-            .toPromise()
-            .then(function (response) { return response.json().data; })
-            .catch(this.handleError);
-    };
-    GameService.prototype.delete = function (id) {
-        var url = this.gamesUrl + "/" + id;
-        return this.http
-            .delete(url, { headers: this.headers })
-            .toPromise()
-            .then(function () { return null; })
+            .map(function (response) {
+            console.log("response getGame", response);
+            response.json().data;
+        })
             .catch(this.handleError);
     };
     return GameService;
 }());
 GameService = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], GameService);
 
 var _a;

@@ -1,8 +1,9 @@
 import 'rxjs/add/operator/toPromise'
 import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/Observable';
 
 import { Injectable } from '@angular/core'
-import { Http, Headers, RequestOptions } from '@angular/http'
+import { Http, Headers, RequestOptions, Response } from '@angular/http'
 
 import { Game } from '../game'
 
@@ -13,22 +14,38 @@ export class GameService{
 
   constructor(private http: Http) {}
 
-  //must anticipate HTTP failures, so always add error handling
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error)
-    return Promise.reject(error.message || error);
+  private handleError(error:any) {
+    // In a real world app, we might use a remote logging infrastructure
+    // We'd also dig deeper into the error to get a better message
+    let errMsg = (error.message) ? error.message :
+        error.status ? `${error.status} - ${error.statusText}` : 'Server error';
+    console.error(errMsg); // log to console instead
+    return Observable.throw(errMsg);
   }
 
-  getGames() {
+  private extractData(res:Response) {
+    let body = res.json();
+    console.log("body in game service", body)
+    return body || [];
+  }
+
+  // originally didn't work because needed to send both handleError and getGames as either a Promise or an Observable. Since handleError was still written as a Promise, there was an inconsistency. If it is a promise, need to show a promise in other files where the link is called
+  getGames(): Observable<Game[]> {
     return this.http
     .get('/api/games')
-    .map( res => {
-      // console.log("res from game.service!****", res);
-      console.log("res.json() from game.service!****", JSON.stringify(res.json(), null, 2));
-      res.json();
-    })
+    .map(this.extractData)
     .catch(this.handleError)
   }
+
+  // getGames(): Observable<Game[]> {
+  //   return this.http
+  //   .get('/api/games')
+  //   .map( res => {
+  //     console.log("res from game.service!****", res);
+  //     console.log("res.json() from game.service!****", JSON.stringify(res.json(), null, 2));
+  //     res.json()})
+  //   .catch(this.handleError)
+  // }
 
   // getGames() {
   //   return this.http
@@ -46,42 +63,51 @@ export class GameService{
   //   })
   // }
 
-
-  getGame(id: number): Promise<Game> {
+  getGame(id: number): Observable<Game> {
     const url = `${this.gamesUrl}/${id}`
-
     return this.http
     .get(url)
-    .toPromise()
-    .then( response => response.json().data as Game)
+    .map( response => {
+      console.log("response getGame", response)
+      response.json().data as Game})
     .catch(this.handleError)
   }
 
-  update(game: Game): Promise<Game> {
-    const url = `${this.gamesUrl}/${game.id}`
+  // getGame(id: number): Promise<Game> {
+  //   const url = `${this.gamesUrl}/${id}`
 
-    return this.http
-    .put(url, JSON.stringify(game), { headers: this.headers })
-    .toPromise()
-    .then( () => game)
-    .catch(this.handleError)
-  }
+  //   return this.http
+  //   .get(url)
+  //   .toPromise()
+  //   .then( response => response.json().data as Game)
+  //   .catch(this.handleError)
+  // }
 
-  create(name: string): Promise<Game> {
-    return this.http
-    .post(this.gamesUrl, JSON.stringify({ name: name }), { headers: this.headers })
-    .toPromise()
-    .then( response => response.json().data as Game )
-    .catch(this.handleError)
-  }
+  // update(game: Game): Promise<Game> {
+  //   const url = `${this.gamesUrl}/${game.id}`
 
-  delete(id: number): Promise<Game> {
-    const url = `${this.gamesUrl}/${id}`
-    return this.http
-    .delete(url, { headers: this.headers})
-    .toPromise()
-    .then(() => null)
-    .catch(this.handleError)
-  }
+  //   return this.http
+  //   .put(url, JSON.stringify(game), { headers: this.headers })
+  //   .toPromise()
+  //   .then( () => game)
+  //   .catch(this.handleError)
+  // }
+
+  // create(name: string): Promise<Game> {
+  //   return this.http
+  //   .post(this.gamesUrl, JSON.stringify({ name: name }), { headers: this.headers })
+  //   .toPromise()
+  //   .then( response => response.json().data as Game )
+  //   .catch(this.handleError)
+  // }
+
+  // delete(id: number): Promise<Game> {
+  //   const url = `${this.gamesUrl}/${id}`
+  //   return this.http
+  //   .delete(url, { headers: this.headers})
+  //   .toPromise()
+  //   .then(() => null)
+  //   .catch(this.handleError)
+  // }
 
 }

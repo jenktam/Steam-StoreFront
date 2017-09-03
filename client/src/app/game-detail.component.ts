@@ -23,15 +23,18 @@ export class GameDetailComponent implements OnInit{
   ngOnInit(): void {
     this.route.paramMap
     .switchMap((params: ParamMap) => this.gameService.getGame(+params.get('id')))
-    .subscribe( game => this.game = game);
+    .subscribe( game => {
+      console.log("game-detail game", game)
+      console.log("game-detail this.game", this.game)
+      this.game = game});
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  save(): void {
-    this.gameService.update(this.game)
-    .then( () => this.goBack())
-  }
+  // save(): void {
+  //   this.gameService.update(this.game)
+  //   .then( () => this.goBack())
+  // }
 }
