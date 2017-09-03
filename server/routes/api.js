@@ -33,4 +33,13 @@ router.get('/games', (req, res, next) => {
   .catch(error => res.status(500).send(error))
 })
 
+router.get('/games', (req, res, next) => {
+  axios.get(`${API1}/games/${id}`, axiosConfig)
+  .then( game => {
+    console.log("games", game.data)
+    res.status(200).json(game.data)
+  })
+  .catch(error => res.status(500).send(error))
+})
+
 module.exports = router;
