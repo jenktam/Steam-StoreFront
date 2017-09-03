@@ -63,6 +63,7 @@ export class GameService{
   //   })
   // }
 
+
   getGame(id: number): Observable<Game> {
     const url = `${this.gamesUrl}/${id}`
     return this.http
