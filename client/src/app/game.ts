@@ -1,18 +1,10 @@
 export class Game {
   id: number;
-  type: number;
   name: string;
-  discounted: boolean;
-  discount_percent: number;
-  original_price: number;
-  final_price: number;
-  currency: string;
-  large_capsule_image: string;
-  small_capsule_image: string;
-  windows_available: boolean;
-  mac_available: boolean;
-  linux_available: boolean;
-  streamingvideo_available: boolean;
-  header_image: string;
-  controller_support: string;
+  summary: string;
+  url: string;
 }
+
+/*
+https://api-2445582011268.apicast.io/games?fields=name,summary,url,release_dates,popularity,rating,total_rating,total_rating_count,genres,cover&order=popularity:desc
+*/

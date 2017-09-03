@@ -13,6 +13,7 @@ export class GamesComponent implements OnInit {
   city = 'Seattle';
 
   games: Game[];
+  // games: any = [];
   selectedGame: Game;
 
   constructor(
@@ -21,14 +22,19 @@ export class GamesComponent implements OnInit {
   ){}
 
   // Methods
+
+  // old way
+  // getGames(): void {
+  //   this.gameService.getGames()
+  //   .then(games => this.games = games);
+  // }
+
   getGames(): void {
-    this.gameService.getGames()
-    .then(games => this.games = games);
+    this.gameService.getGames().subscribe(games => {
+      this.games = games;
+    });
   }
 
-  ngOnInit(): void {
-    this.getGames();
-  }
 
   onSelect(game: Game): void {
     this.selectedGame = game;
@@ -61,15 +67,25 @@ export class GamesComponent implements OnInit {
       if(this.selectedGame === game ) this.selectedGame = null
     })
   }
+
+  ngOnInit() {
+    this.getGames
+  }
+
+  // ngOnInit() {
+  //   this.gameService.getGames().subscribe(games => {
+  //     this.games = games;
+  //   });
+  // }
 }
 
-/*
-Working apis:
-to storefront:
-http://store.steampowered.com/api/featured/
+  /*
+  Working apis:
+  to storefront:
+  http://store.steampowered.com/api/featured/
 
-by app id: for binding of isaac
-http://store.steampowered.com/api/appdetails/?appids=250900
+  by app id: for binding of isaac
+  http://store.steampowered.com/api/appdetails/?appids=250900
 
 featured categories
 may be best and have the most info

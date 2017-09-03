@@ -11,11 +11,25 @@ import { GameService } from './services/game.service'
 export class DashboardComponent implements OnInit {
   games: Game[] = [];
 
+  // games: any = [];
+
   constructor(private gameService: GameService){}
 
+  // ngOnInit() {
+  //   this.gameService.getGames()
+  //   .then(games => {
+  //     console.log("dashboard called!!!!****", games)
+  //     this.games = games});
+  // }
+
   ngOnInit(): void {
-    this.gameService.getGamesTest();
+    var gamesTemp = this.gameService.getGames();
+    console.log("gamesTemp", gamesTemp)
     this.gameService.getGames()
-    .then(games => this.games = games.slice(1,9));
+    .subscribe( games => {
+      console.log("dashboard games***", games)
+      console.log("this.games***", this.games)
+      this.games = games;
+    })
   }
 }

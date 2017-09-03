@@ -199,7 +199,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Dashboard</h1>\n<h2>Top Selling Games Dashboard</h2>\n<div class=\"grid grid-pad\">\n    <a *ngFor=\"let game of games\" class=\"col-1-4\" [routerLink]=\"['/detail', game.id]\">\n      <div class=\"module game\">\n        <h4>{{game.name}}</h4>\n      </div>\n    </a>\n  </div>\n<game-search></game-search>\n"
+module.exports = "<h1>Dashboard</h1>\n<h2>Top Selling Games Dashboard</h2>\n<div class=\"grid grid-pad\">\n    <a *ngFor=\"let game of games\" class=\"col-1-4\" [routerLink]=\"['/detail', game.id]\">\n      <div class=\"module game\">\n        <h4>{{game.name}}</h4>\n        <h4>{{game.url}}</h4>\n      </div>\n    </a>\n  </div>\n<game-search></game-search>\n"
 
 /***/ }),
 
@@ -222,15 +222,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var DashboardComponent = (function () {
+    // games: any = [];
     function DashboardComponent(gameService) {
         this.gameService = gameService;
         this.games = [];
     }
+    // ngOnInit() {
+    //   this.gameService.getGames()
+    //   .then(games => {
+    //     console.log("dashboard called!!!!****", games)
+    //     this.games = games});
+    // }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.gameService.getGamesTest();
+        var gamesTemp = this.gameService.getGames();
+        console.log("gamesTemp", gamesTemp);
         this.gameService.getGames()
-            .then(function (games) { return _this.games = games.slice(1, 9); });
+            .subscribe(function (games) {
+            console.log("dashboard games***", games);
+            console.log("this.games***", _this.games);
+            _this.games = games;
+        });
     };
     return DashboardComponent;
 }());
@@ -494,13 +506,16 @@ var GamesComponent = (function () {
         this.city = 'Seattle';
     }
     // Methods
+    // old way
+    // getGames(): void {
+    //   this.gameService.getGames()
+    //   .then(games => this.games = games);
+    // }
     GamesComponent.prototype.getGames = function () {
         var _this = this;
-        this.gameService.getGames()
-            .then(function (games) { return _this.games = games; });
-    };
-    GamesComponent.prototype.ngOnInit = function () {
-        this.getGames();
+        this.gameService.getGames().subscribe(function (games) {
+            _this.games = games;
+        });
     };
     GamesComponent.prototype.onSelect = function (game) {
         this.selectedGame = game;
@@ -530,6 +545,9 @@ var GamesComponent = (function () {
             if (_this.selectedGame === game)
                 _this.selectedGame = null;
         });
+    };
+    GamesComponent.prototype.ngOnInit = function () {
+        this.getGames;
     };
     return GamesComponent;
 }());
@@ -609,8 +627,10 @@ var _a;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GameService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/add/operator/toPromise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -623,58 +643,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var GameService = (function () {
-    // private header = {}
-    // // headers.append('user-key', '7ee53a24fee43bb2da17a2658aeb6ce0')
-    // // private headers = new Headers({'Content-Type': 'application/json', 'user-key': '7ee53a24fee43bb2da17a2658aeb6ce0', 'Accept': 'application/json'})
     function GameService(http) {
         this.http = http;
         this.gamesUrl = 'api/games'; //url to web api**
-        this.headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]();
-        this.headers.append('user-key', '7ee53a24fee43bb2da17a2658aeb6ce0');
+        this.headers = new __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Headers */]();
     }
     //must anticipate HTTP failures, so always add error handling
     GameService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     };
-    GameService.prototype.getGamesTest = function () {
-        var headers2 = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({
-            'user-key': '7ee53a24fee43bb2da17a2658aeb6ce0',
-            'Accept': 'application/json'
-        });
-        var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({
-            headers: headers2
-        });
-        this.http
-            .get('https://api-2445582011268.apicast.io/games?fields=name,summary,url,release_dates,popularity,rating,total_rating,total_rating_count,genres,cover&order=popularity:desc', options)
-            .toPromise() //comes from rxJS library
-            .then(function (response) {
-            console.log("response: " + response.text());
-        }) //returns resolved promise value of games
-            .catch(this.handleError);
-    };
     GameService.prototype.getGames = function () {
-        // let myParams = new URLSearchParams();
-        // myParams.append('id', gameId)
-        var headers = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */]({ 'test': 'ha ha' });
-        var options = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["d" /* RequestOptions */]({
-            headers: headers
-        });
         return this.http
-            .get('https://api-2445582011268.apicast.io/games?fields=name,summary,url,release_dates,popularity,rating,total_rating,total_rating_count,genres,cover&order=popularity:desc', options)
-            .toPromise() //comes from rxJS library
-            .then(function (response) {
-            console.log("response: " + response.text());
-        }) //returns resolved promise value of games
+            .get('/api/games')
+            .map(function (res) {
+            // console.log("res from game.service!****", res);
+            console.log("res.json() from game.service!****", JSON.stringify(res.json(), null, 2));
+            res.json();
+        })
             .catch(this.handleError);
     };
-    GameService.prototype.getGamesSlowly = function () {
-        var _this = this;
-        return new Promise(function (resolve) {
-            setTimeout(function () { return resolve(_this.getGames()); }, 2000);
-        });
-    };
+    // getGames() {
+    //   return this.http
+    //   .get('/api/games')
+    //   .toPromise()
+    //   .then( res => {
+    //     console.log("res from game.service!****", res);
+    //     console.log("res.json() from game.service!****", JSON.stringify(res.json(), null, 2));
+    //     res.json() as Game[]})
+    // }
+    // getGamesSlowly(): Promise<Game[]> {
+    //   return new Promise(resolve => {
+    //     setTimeout(() => resolve(this.getGames()), 2000)
+    //   })
+    // }
     GameService.prototype.getGame = function (id) {
         var url = this.gamesUrl + "/" + id;
         return this.http
@@ -709,8 +713,8 @@ var GameService = (function () {
     return GameService;
 }());
 GameService = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["C" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["C" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], GameService);
 
 var _a;
