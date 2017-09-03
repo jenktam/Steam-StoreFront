@@ -36,7 +36,7 @@ router.get('/games', (req, res, next) => {
 router.get('/games/:id', (req, res, next) => {
   axios.get(`${API1}/games/${id}`, axiosConfig)
   .then( game => {
-    console.log("games", game.data)
+    console.log("games route***", game.data)
     res.status(200).json(game.data)
   })
   .catch(error => res.status(500).send(error))

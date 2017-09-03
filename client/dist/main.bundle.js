@@ -279,7 +279,11 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-detail.component.html":
 /***/ (function(module, exports) {
 
+<<<<<<< Updated upstream
 module.exports = "<div *ngIf=\"game\">\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Url: {{game.url}}</p>\n\n  </div>\n\n  <!-- <button (click)=\"save()\">Save</button> -->\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
+=======
+module.exports = "<div *ngIf=\"game\">\n  <h2>Game details!</h2>\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Price: {{game.final_price}}</p>\n    <p>Windows Available: {{game.windows_available}}</p>\n    <p>Mac Available: {{game.mac_available}}</p>\n    <p>Linux Available: {{game.linux_available}}</p>\n  </div>\n\n  <button (click)=\"save()\">Save</button>\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
+>>>>>>> Stashed changes
 
 /***/ }),
 
