@@ -32,13 +32,13 @@ h4 {
   color: #eee;
   height: 200px;
   min-width: 120px;
-  background-color: #607D8B;
+  background-color: #0e998c;
   border-radius: 2px;
 }
 .module:hover {
   background-color: #EEE;
   cursor: pointer;
-  color: #607d8b;
+  color: #0e998c;
 }
 .grid-pad {
   padding: 10px 0;
