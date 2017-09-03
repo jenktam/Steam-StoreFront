@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor(private gameService: GameService){}
 
   ngOnInit(): void {
+    this.gameService.getGamesTest();
     this.gameService.getGames()
     .then(games => this.games = games.slice(1,9));
   }

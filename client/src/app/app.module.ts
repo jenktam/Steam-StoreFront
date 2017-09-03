@@ -14,15 +14,13 @@ import { DashboardComponent } from './dashboard.component'
 import { GamesComponent } from './games.component'
 import { GameDetailComponent } from './game-detail.component'
 import { GameService } from './services/game.service'
-import { GameSearchComponent } from './game-search.component'
-
+import { GameSearchComponent } from './game-search.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
   ],
   declarations: [
