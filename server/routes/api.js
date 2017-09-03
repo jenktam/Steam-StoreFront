@@ -5,6 +5,7 @@ const axios = require('axios');
 const API = 'https://jsonplaceholder.typicode.com';
 // const API1 = 'https://api-2445582011268.apicast.io/games?fields=name,summary,url,release_dates,popularity,rating,total_rating,total_rating_count,genres,cover&order=popularity:desc';
 const API1 = 'https://api-2445582011268.apicast.io/games?fields=name,summary,url&order=popularity:desc';
+const API2 = 'https://api-2445582011268.apicast.io/games';
 
 var axiosConfig = {
   headers: {
@@ -33,8 +34,11 @@ router.get('/games', (req, res, next) => {
   .catch(error => res.status(500).send(error))
 })
 
+
 router.get('/games/:id', (req, res, next) => {
-  axios.get(`${API1}/games/${id}`, axiosConfig)
+  const id = req.params.id;
+  console.log("id", id)
+  axios.get(`${API2}/${id}/?fields=name,summary,url`, axiosConfig)
   .then( game => {
     console.log("games route***", game.data)
     res.status(200).json(game.data)

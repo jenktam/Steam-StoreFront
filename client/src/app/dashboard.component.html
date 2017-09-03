@@ -3,6 +3,7 @@
 <div class="grid grid-pad">
     <a *ngFor="let game of games" class="col-1-4" [routerLink]="['/detail', game.id]">
       <div class="module game">
+        <h4>{{game.id}}</h4>
         <h4>{{game.name}}</h4>
         <h4>{{game.url}}</h4>
       </div>

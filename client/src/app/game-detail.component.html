@@ -1,11 +1,12 @@
+<h2>Game details!</h2>
 <div *ngIf="game">
-  <h2>Game details!</h2>
   <h2>{{game.name}} details!</h2>
   <div><label>id: </label>{{game.id}}</div>
   <div>
     <label>name: </label>
     <input [(ngModel)]="game.name" placeholder="name"/>
     <p>Url: {{game.url}}</p>
+    <p>Summary: {{game.summary}}</p>
 
   </div>
 

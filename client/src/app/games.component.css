@@ -24,7 +24,7 @@
   color: white;
 }
 .games li:hover {
-  color: #607D8B;
+  color: #0e998c;
   background-color: #DDD;
   left: .1em;
 }
@@ -37,12 +37,12 @@
   font-size: small;
   color: white;
   padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
+  background-color: #0e998c;
   line-height: 1em;
   position: relative;
   left: -1px;
   top: -4px;
-  height: 1.8em;
+  height: 5em;
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
 }
@@ -55,3 +55,27 @@ button.delete {
   color: white;
   z-index: 4;
 }
+
+button.details {
+  font-family: Arial;
+  font-size: 20px;
+  background-color: #0e998c;
+  display: inline-block;
+  color: white;
+  padding: 1em;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.component {
+  display: flex;
+}
+
+.detail {
+  margin: 20em 0;
+}
+

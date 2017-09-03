@@ -186,7 +186,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "[class*='col-'] {\n  float: left;\n  padding-right: 20px;\n  padding-bottom: 20px;\n}\n[class*='col-']:last-of-type {\n  padding-right: 0;\n}\na {\n  text-decoration: none;\n}\n*, *:after, *:before {\n  box-sizing: border-box;\n}\nh3 {\n  text-align: center; margin-bottom: 0;\n}\nh4 {\n  position: relative;\n}\n.grid {\n  margin: 0;\n}\n.col-1-4 {\n  width: 25%;\n}\n.module {\n  padding: 20px;\n  text-align: center;\n  color: #eee;\n  max-height: 120px;\n  min-width: 120px;\n  background-color: #607D8B;\n  border-radius: 2px;\n}\n.module:hover {\n  background-color: #EEE;\n  cursor: pointer;\n  color: #607d8b;\n}\n.grid-pad {\n  padding: 10px 0;\n}\n.grid-pad > [class*='col-']:last-of-type {\n  padding-right: 20px;\n}\n@media (max-width: 600px) {\n  .module {\n    font-size: 10px;\n    max-height: 75px; }\n}\n@media (max-width: 1024px) {\n  .grid {\n    margin: 0;\n  }\n  .module {\n    min-width: 60px;\n  }\n}\n", ""]);
+exports.push([module.i, "[class*='col-'] {\n  float: left;\n  padding-right: 20px;\n  padding-bottom: 20px;\n}\n[class*='col-']:last-of-type {\n  padding-right: 0;\n}\na {\n  text-decoration: none;\n}\n*, *:after, *:before {\n  box-sizing: border-box;\n}\nh3 {\n  text-align: center; margin-bottom: 0;\n}\nh4 {\n  position: relative;\n}\n.grid {\n  margin: 0;\n}\n.col-1-4 {\n  width: 25%;\n}\n.module {\n  padding: 20px;\n  text-align: center;\n  color: #eee;\n  height: 200px;\n  min-width: 120px;\n  background-color: #607D8B;\n  border-radius: 2px;\n}\n.module:hover {\n  background-color: #EEE;\n  cursor: pointer;\n  color: #607d8b;\n}\n.grid-pad {\n  padding: 10px 0;\n}\n.grid-pad > [class*='col-']:last-of-type {\n  padding-right: 20px;\n}\n@media (max-width: 600px) {\n  .module {\n    font-size: 10px;\n    max-height: 75px; }\n}\n@media (max-width: 1024px) {\n  .grid {\n    margin: 0;\n  }\n  .module {\n    min-width: 60px;\n  }\n}\n", ""]);
 
 // exports
 
@@ -199,7 +199,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Dashboard</h1>\n<h2>Top Selling Games Dashboard</h2>\n<div class=\"grid grid-pad\">\n    <a *ngFor=\"let game of games\" class=\"col-1-4\" [routerLink]=\"['/detail', game.id]\">\n      <div class=\"module game\">\n        <h4>{{game.name}}</h4>\n        <h4>{{game.url}}</h4>\n      </div>\n    </a>\n  </div>\n<game-search></game-search>\n"
+module.exports = "<h1>Dashboard</h1>\n<h2>Top Selling Games Dashboard</h2>\n<div class=\"grid grid-pad\">\n    <a *ngFor=\"let game of games\" class=\"col-1-4\" [routerLink]=\"['/detail', game.id]\">\n      <div class=\"module game\">\n        <h4>{{game.id}}</h4>\n        <h4>{{game.name}}</h4>\n        <h4>{{game.url}}</h4>\n      </div>\n    </a>\n  </div>\n<game-search></game-search>\n"
 
 /***/ }),
 
@@ -279,11 +279,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/game-detail.component.html":
 /***/ (function(module, exports) {
 
-<<<<<<< Updated upstream
-module.exports = "<div *ngIf=\"game\">\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Url: {{game.url}}</p>\n\n  </div>\n\n  <!-- <button (click)=\"save()\">Save</button> -->\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
-=======
-module.exports = "<div *ngIf=\"game\">\n  <h2>Game details!</h2>\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Price: {{game.final_price}}</p>\n    <p>Windows Available: {{game.windows_available}}</p>\n    <p>Mac Available: {{game.mac_available}}</p>\n    <p>Linux Available: {{game.linux_available}}</p>\n  </div>\n\n  <button (click)=\"save()\">Save</button>\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
->>>>>>> Stashed changes
+module.exports = "<h2>Game details!</h2>\n<div *ngIf=\"game\">\n  <h2>{{game.name}} details!</h2>\n  <div><label>id: </label>{{game.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"game.name\" placeholder=\"name\"/>\n    <p>Url: {{game.url}}</p>\n    <p>Summary: {{game.summary}}</p>\n\n  </div>\n\n  <!-- <button (click)=\"save()\">Save</button> -->\n  <button (click)=\"goBack()\">Back</button>\n</div>\n\n\n\n"
 
 /***/ }),
 
@@ -318,16 +314,31 @@ var GameDetailComponent = (function () {
         this.route = route;
         this.location = location;
     }
+    // *BUG: switchmap not transferring data to game details
     GameDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log("this.getGame(3044)", this.gameService.getGame(3044));
         this.route.paramMap
             .switchMap(function (params) { return _this.gameService.getGame(+params.get('id')); })
-            .subscribe(function (game) {
-            console.log("game-detail game", game);
-            console.log("game-detail this.game", _this.game);
-            _this.game = game;
+            .subscribe(function (gameDetails) {
+            _this.gameDetails = gameDetails;
+            console.log("game-detail gameDetails", gameDetails);
+            console.log("game-detail this.gameDetails", _this.gameDetails);
         });
     };
+    // may not work
+    // getGame(id: number): void {
+    //   this.gameService.getGame(+id).subscribe(game => {
+    //     console.log("gameComp game***", game)
+    //     console.log("gameComp this.game***", this.game)
+    //     this.game = game;
+    //   });
+    // }
+    // ngOnInit(): void {
+    //   console.log("this.getGame(+this.game.id)", this.getGame(3044))
+    //   this.getGame(3044)
+    //   // this.getGame(this.game.id)
+    // }
     GameDetailComponent.prototype.goBack = function () {
         this.location.back();
     };
@@ -463,7 +474,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".selected {\n  background-color: #CFD8DC !important;\n  color: white;\n}\n.games {\n  margin: 0 0 2em 0;\n  list-style-type: none;\n  padding: 0;\n  width: 35em;\n  text-align: left;\n}\n.games li {\n  cursor: pointer;\n  position: relative;\n  left: 0;\n  background-color: #EEE;\n  margin: .5em;\n  padding: .3em 0;\n  height: 4.5em;\n  border-radius: 4px;\n}\n.games li.selected:hover {\n  background-color: #BBD8DC !important;\n  color: white;\n}\n.games li:hover {\n  color: #607D8B;\n  background-color: #DDD;\n  left: .1em;\n}\n.games .text {\n  position: relative;\n  top: -3px;\n}\n.games .badge {\n  display: inline-block;\n  font-size: small;\n  color: white;\n  padding: 0.8em 0.7em 0 0.7em;\n  background-color: #607D8B;\n  line-height: 1em;\n  position: relative;\n  left: -1px;\n  top: -4px;\n  height: 1.8em;\n  margin-right: .8em;\n  border-radius: 4px 0 0 4px;\n}\n\nbutton.delete {\n  float: right;\n  margin-top: -62px;\n  margin-right: 1.8em;\n  background-color: gray !important;\n  color: white;\n  z-index: 4;\n}\n", ""]);
+exports.push([module.i, ".selected {\n  background-color: #CFD8DC !important;\n  color: white;\n}\n.games {\n  margin: 0 0 2em 0;\n  list-style-type: none;\n  padding: 0;\n  width: 35em;\n  text-align: left;\n}\n.games li {\n  cursor: pointer;\n  position: relative;\n  left: 0;\n  background-color: #EEE;\n  margin: .5em;\n  padding: .3em 0;\n  height: 4.5em;\n  border-radius: 4px;\n}\n.games li.selected:hover {\n  background-color: #BBD8DC !important;\n  color: white;\n}\n.games li:hover {\n  color: #0e998c;\n  background-color: #DDD;\n  left: .1em;\n}\n.games .text {\n  position: relative;\n  top: -3px;\n}\n.games .badge {\n  display: inline-block;\n  font-size: small;\n  color: white;\n  padding: 0.8em 0.7em 0 0.7em;\n  background-color: #0e998c;\n  line-height: 1em;\n  position: relative;\n  left: -1px;\n  top: -4px;\n  height: 5em;\n  margin-right: .8em;\n  border-radius: 4px 0 0 4px;\n}\n\nbutton.delete {\n  float: right;\n  margin-top: -62px;\n  margin-right: 1.8em;\n  background-color: gray !important;\n  color: white;\n  z-index: 4;\n}\n\nbutton.details {\n  font-family: Arial;\n  font-size: 20px;\n  background-color: #0e998c;\n  display: inline-block;\n  color: white;\n  padding: 1em;\n  line-height: 1em;\n  position: relative;\n  left: -1px;\n  top: -4px;\n  margin-right: .8em;\n  border-radius: 4px 0 0 4px;\n}\n\n.component {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.detail {\n  margin: 20em 0;\n}\n\n", ""]);
 
 // exports
 
@@ -476,7 +487,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/games.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h2>Top Selling Games</h2>\n  <ul class=\"games\">\n    <li *ngFor=\"let game of games\"\n      [class.selected]=\"game === selectedGame\"\n      (click)=\"onSelect(game)\"\n    >\n      <div class=\"badge\">\n        <span>ID: {{game.id}}</span>   Name: {{game.name}}\n        <p>Link to Game: {{game.url}}</p>\n      </div>\n      <!-- <button class=\"delete\" (click)=\"delete(game); $event.stopPropagation()\">x</button> -->\n    </li>\n  </ul>\n\n  <div *ngIf=\"selectedGame\">\n    <h2>\n      {{selectedGame.name | uppercase }} is my favorite game!\n    </h2>\n    <button (click)=\"gotoDetail()\">View Details</button>\n  </div>\n\n  <div>\n    <label>Game name:</label><input #gameName />\n    <!-- <button (click)=\"add(gameName.value); gameName.value=''\">\n      Add\n    </button> -->\n  </div>\n</div>\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div class=\"component\" style=\"text-align:center\">\n  <h2>Top Selling Games</h2>\n  <ul class=\"games\">\n    <li *ngFor=\"let game of games\"\n      [class.selected]=\"game === selectedGame\"\n      (click)=\"onSelect(game)\"\n    >\n      <div class=\"badge\">\n        <span>ID: {{game.id}}</span>   Name: {{game.name}}\n        <p>Link to Game: {{game.url}}</p>\n      </div>\n      <!-- <button class=\"delete\" (click)=\"delete(game); $event.stopPropagation()\">x</button> -->\n    </li>\n  </ul>\n\n  <div class=\"detail\" *ngIf=\"selectedGame\">\n    <h2>\n      {{selectedGame.name | uppercase }} is my favorite game!\n    </h2>\n    <button (click)=\"gotoDetail()\" class=\"details\">View Details</button>\n  </div>\n\n  <!-- Add a game - for future -->\n  <div>\n    <label>Game name:</label><input #gameName />\n    <!-- <button (click)=\"add(gameName.value); gameName.value=''\">\n      Add\n    </button> -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -514,8 +525,7 @@ var GamesComponent = (function () {
     GamesComponent.prototype.getGames = function () {
         var _this = this;
         this.gameService.getGames().subscribe(function (games) {
-            console.log("gameComp games***", games);
-            console.log("gameComp this.games***", _this.games);
+            // console.log("gameComp games***", games)
             _this.games = games;
         });
     };
@@ -640,8 +650,6 @@ var GameService = (function () {
         this.headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Headers */]();
     }
     GameService.prototype.handleError = function (error) {
-        // In a real world app, we might use a remote logging infrastructure
-        // We'd also dig deeper into the error to get a better message
         var errMsg = (error.message) ? error.message :
             error.status ? error.status + " - " + error.statusText : 'Server error';
         console.error(errMsg); // log to console instead
@@ -687,8 +695,10 @@ var GameService = (function () {
         return this.http
             .get(url)
             .map(function (response) {
-            console.log("response getGame", response);
-            response.json().data;
+            // console.log("response getGame***", response)
+            console.log("response.json() getGame:", response.json()[0]);
+            console.log("response.json().name getGame:", response.json()[0].name);
+            response.json()[0];
         })
             .catch(this.handleError);
     };

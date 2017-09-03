@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div class="component" style="text-align:center">
   <h2>Top Selling Games</h2>
   <ul class="games">
     <li *ngFor="let game of games"
@@ -14,13 +14,14 @@
     </li>
   </ul>
 
-  <div *ngIf="selectedGame">
+  <div class="detail" *ngIf="selectedGame">
     <h2>
       {{selectedGame.name | uppercase }} is my favorite game!
     </h2>
-    <button (click)="gotoDetail()">View Details</button>
+    <button (click)="gotoDetail()" class="details">View Details</button>
   </div>
 
+  <!-- Add a game - for future -->
   <div>
     <label>Game name:</label><input #gameName />
     <!-- <button (click)="add(gameName.value); gameName.value=''">

@@ -28,8 +28,7 @@ export class GamesComponent implements OnInit {
 
   getGames(): void {
     this.gameService.getGames().subscribe(games => {
-      console.log("gameComp games***", games)
-      console.log("gameComp this.games***", this.games)
+      // console.log("gameComp games***", games)
       this.games = games;
     });
   }

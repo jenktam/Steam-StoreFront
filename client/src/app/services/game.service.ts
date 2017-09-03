@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core'
 import { Http, Headers, RequestOptions, Response } from '@angular/http'
 
 import { Game } from '../game'
+import { GameDetails } from '../game-details'
 
 @Injectable()
 export class GameService{
@@ -15,8 +16,6 @@ export class GameService{
   constructor(private http: Http) {}
 
   private handleError(error:any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
     let errMsg = (error.message) ? error.message :
         error.status ? `${error.status} - ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
@@ -65,17 +64,22 @@ export class GameService{
 
 
   getGame(id: number): Observable<Game> {
-    const url = `${this.gamesUrl}/${id}`
+    const url = `${this.gamesUrl}/${id}`;
     return this.http
     .get(url)
+    // .map(this.extractData)
     .map( response => {
-      console.log("response getGame", response)
-      response.json().data as Game})
+      // console.log("response getGame***", response)
+      console.log("response.json() getGame:", response.json()[0])
+      console.log("response.json().name getGame:", response.json()[0].name)
+
+      response.json()[0] as GameDetails;
+    })
     .catch(this.handleError)
   }
 
   // getGame(id: number): Promise<Game> {
-  //   const url = `${this.gamesUrl}/${id}`
+    // const url = `${this.gamesUrl}/${id}`
 
   //   return this.http
   //   .get(url)
