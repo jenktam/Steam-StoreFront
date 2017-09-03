@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 
 import { Game } from './game'
-import { GameService } from './game.service'
+import { GameService } from './services/game.service'
 
 @Component({
   selector: 'dashboard',

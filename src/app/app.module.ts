@@ -13,7 +13,7 @@ import { AppComponent } from './app.component'
 import { DashboardComponent } from './dashboard.component'
 import { GamesComponent } from './games.component'
 import { GameDetailComponent } from './game-detail.component'
-import { GameService } from './game.service'
+import { GameService } from './services/game.service'
 import { GameSearchComponent } from './game-search.component'
 
 
